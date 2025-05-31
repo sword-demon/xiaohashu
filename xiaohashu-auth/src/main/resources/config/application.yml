@@ -1,0 +1,28 @@
+server:
+  port: 8080 # 项目启动的端口
+
+spring:
+  profiles:
+    active: dev # 默认激活 dev 本地开发环境
+
+mybatis:
+  # mybatis xml 配置文件路径 resources/mapper/ 所有的 xml 文件
+  mapper-locations: classpath:/mapper/**/*.xml
+
+
+# Sa-Token 配置
+sa-token:
+  # token 名称 同时也是 cookie 名称
+  token-name: satoken
+  # token 最低活跃频率 单位是秒，如果token超过此时间段没有访问系统就会被冻结，默认-1代表不限制，用不冻结
+  active-timeout: -1
+  # token有效期 秒，默认30天，-1代表永久有效
+  timeout: 2592000
+  # 是否允许同一账号多地同时登录 true 表示允许，false时新登录挤掉旧登录
+  is-concurrent: true
+  # 在多人登录同一账号时，是否共用一个token，false时每次登录新建一个token
+  is-share: true
+  # token 风格，默认可取值 uuid、simple-uuid、random-32、random-64、random-128、tik
+  token-style: uuid
+  # 是否输出操作日志
+  is-log: true
