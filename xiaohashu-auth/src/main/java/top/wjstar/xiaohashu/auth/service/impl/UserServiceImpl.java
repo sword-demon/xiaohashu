@@ -2,6 +2,7 @@ package top.wjstar.xiaohashu.auth.service.impl;
 
 import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
+import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
@@ -65,10 +66,17 @@ public class UserServiceImpl implements UserService {
             case VERIFICATION_CODE:
                 String verificationCode = userLoginReqVO.getCode();
 
+                // 校验入参验证码是否为空
+                // 会抛出一个 IllegalArgumentException 异常 ,所以需要捕捉
+                Preconditions.checkArgument(
+                        StringUtils.isNotBlank(verificationCode),
+                        "验证码不能为空"
+                );
+
                 // 校验验证码是否为空
-                if (StringUtils.isBlank(verificationCode)) {
-                    return Response.fail(ResponseCodeEnum.PARAM_NOT_VALID.getErrorCode(), "验证码不能为空");
-                }
+//                if (StringUtils.isBlank(verificationCode)) {
+//                    return Response.fail(ResponseCodeEnum.PARAM_NOT_VALID.getErrorCode(), "验证码不能为空");
+//                }
 
                 // 构建验证码 redis key
                 String key = RedisKeyConstants.buildVerificationCodeKey(phone);

@@ -19,8 +19,9 @@ public class GlobalExceptionHandler {
 
     /**
      * 捕获自定义异常
+     *
      * @param request 请求信息
-     * @param e 自定义异常
+     * @param e       自定义异常
      * @return 自定义响应内容
      */
     @ExceptionHandler(value = BizException.class)
@@ -31,8 +32,9 @@ public class GlobalExceptionHandler {
 
     /**
      * 捕获参数校验异常
+     *
      * @param request 请求信息
-     * @param e 参数校验异常
+     * @param e       参数校验异常
      * @return 自定义响应内容
      */
     @ExceptionHandler({MethodArgumentNotValidException.class})
@@ -67,14 +69,28 @@ public class GlobalExceptionHandler {
 
     /**
      * 其他类型异常
+     *
      * @param request 请求信息
-     * @param e 其他异常
+     * @param e       其他异常
      * @return 自定义响应内容
      */
-    @ExceptionHandler({ Exception.class })
+    @ExceptionHandler({Exception.class})
     @ResponseBody
     public Response<Object> handleOtherException(HttpServletRequest request, Exception e) {
         log.error("{} request error, ", request.getRequestURI(), e);
         return Response.fail(ResponseCodeEnum.SYSTEM_ERROR);
+    }
+
+    @ExceptionHandler({IllegalArgumentException.class})
+    @ResponseBody
+    public Response<Object> handleIllegalArgumentException(HttpServletRequest request, IllegalArgumentException e) {
+        // 参数错误异常码
+        String errorCode = ResponseCodeEnum.PARAM_NOT_VALID.getErrorCode();
+
+        // 错误信息
+        String errorMessage = e.getMessage();
+        log.warn("{} request error, errorCode: {}, errorMessage: {}", request.getRequestURI(), errorCode, errorMessage);
+
+        return Response.fail(errorCode, errorMessage);
     }
 }
