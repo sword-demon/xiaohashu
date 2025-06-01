@@ -19,6 +19,7 @@
         <!-- 认证模块 -->
         <module>xiaohashu-auth</module>
         <module>xiaohashu-framework</module>
+        <module>xiaohashu-gateway</module>
     </modules>
 
     <properties>

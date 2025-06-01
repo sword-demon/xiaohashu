@@ -1,0 +1,12 @@
+server:
+  port: 8000 # 指定启动端口
+spring:
+  cloud:
+    gateway:
+      routes: # 定义网关的路由规则
+        - id: auth # 唯一标识这个路由
+          uri: lb://xiaohashu-auth  # 路由到的目标服务地址 lb 是负载均衡 后面是服务的名称
+          predicates: # 用于定义匹配规则,决定哪些请求会被路由到这个目标服务
+            - Path=/auth/** # 表示所有 /auth/ 开头的路径都会匹配这个路由规则
+          filters: # 定义路由过滤器
+            - StripPrefix=1 # 表示去掉路径中的第一部分,如果请求路径为 /auth/verification/code/send,去掉第一个前缀后,实际服务的路径变成了 /verification/code/send
