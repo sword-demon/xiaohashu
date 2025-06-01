@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: xiaohashu-auth # 应用名称
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      config:
+        server-addr: http://159.75.113.48:8848 # 指定 nacos 配置中心的服务器地址
+        prefix: ${spring.application.name} # 配置 Data Id 前缀,这里使用应用名称
+        group: DEFAULT_GROUP # 所属组
+        namespace: xiaohashu # 命名空间
+        file-extension: yaml # 配置文件格式
+        refresh-enabled: true # 是否开启动态刷新
+      discovery:
+        enabled: true # 启用服务发现
+        group: DEFAULT_GROUP # 所属组
+        namespace: xiaohashu # 命名空间
+        server-addr: ${spring.cloud.nacos.config.server-addr}
