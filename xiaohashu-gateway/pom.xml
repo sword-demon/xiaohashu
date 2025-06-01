@@ -53,5 +53,22 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-pool2</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>top.wjstar</groupId>
+            <artifactId>xiaohashu-common</artifactId>
+        </dependency>
+
+        <!-- Redis -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+
+        <!-- Jackson 组件 -->
+        <dependency>
+            <groupId>top.wjstar</groupId>
+            <artifactId>xiaohashu-spring-boot-starter-jackson</artifactId>
+        </dependency>
     </dependencies>
 </project>

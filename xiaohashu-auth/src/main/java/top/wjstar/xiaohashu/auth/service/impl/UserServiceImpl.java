@@ -155,7 +155,7 @@ public class UserServiceImpl implements UserService {
                 // 将该用户的角色 ID 存入 Redis 中
                 List<Long> roles = Lists.newArrayList();
                 roles.add(RoleConstants.COMMON_USER_ROLE_ID);
-                String userRolesKey = RedisKeyConstants.buildUserRoleKey(phone);
+                String userRolesKey = RedisKeyConstants.buildUserRoleKey(userId);
                 redisTemplate.opsForValue().set(userRolesKey, JsonUtils.toJsonString(roles));
 
                 return userId;
