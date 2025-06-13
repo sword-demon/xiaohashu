@@ -3,7 +3,6 @@ package top.wjstar.xiaohashu.gateway.auth;
 import cn.dev33.satoken.reactor.filter.SaReactorFilter;
 import cn.dev33.satoken.router.SaRouter;
 import cn.dev33.satoken.stp.StpUtil;
-import cn.dev33.satoken.util.SaResult;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -33,17 +32,14 @@ public class SaTokenConfigure {
                             .notMatch("/auth/verification/code/send")// 排除验证码发送接口
                             .check(r -> StpUtil.checkLogin()); // 校验是否登录
 
+                    SaRouter.match("/auth/user/logout", r -> StpUtil.checkRole("admin"));
                     // 权限认证 -- 不同模块, 校验不同权限
-                    SaRouter.match("/user/**", r -> StpUtil.checkPermission("user"));
-                    SaRouter.match("/admin/**", r -> StpUtil.checkPermission("admin"));
-                    SaRouter.match("/goods/**", r -> StpUtil.checkPermission("goods"));
-                    SaRouter.match("/orders/**", r -> StpUtil.checkPermission("orders"));
+//                    SaRouter.match("/user/**", r -> StpUtil.checkPermission("user"));
+//                    SaRouter.match("/admin/**", r -> StpUtil.checkPermission("admin"));
+//                    SaRouter.match("/goods/**", r -> StpUtil.checkPermission("goods"));
+//                    SaRouter.match("/orders/**", r -> StpUtil.checkPermission("orders"));
 
                     // 更多匹配 ...  */
-                })
-                // 异常处理方法：每次setAuth函数出现异常时进入
-                .setError(e -> {
-                    return SaResult.error(e.getMessage());
                 })
                 ;
     }
