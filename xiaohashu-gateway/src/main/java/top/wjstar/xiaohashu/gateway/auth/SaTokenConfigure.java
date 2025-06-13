@@ -1,5 +1,8 @@
 package top.wjstar.xiaohashu.gateway.auth;
 
+import cn.dev33.satoken.exception.NotLoginException;
+import cn.dev33.satoken.exception.NotPermissionException;
+import cn.dev33.satoken.exception.NotRoleException;
 import cn.dev33.satoken.reactor.filter.SaReactorFilter;
 import cn.dev33.satoken.router.SaRouter;
 import cn.dev33.satoken.stp.StpUtil;
@@ -40,6 +43,17 @@ public class SaTokenConfigure {
 //                    SaRouter.match("/orders/**", r -> StpUtil.checkPermission("orders"));
 
                     // 更多匹配 ...  */
+                })
+                .setError(e -> {
+                    if (e instanceof NotLoginException) {
+                        throw new NotLoginException(e.getMessage(), null, null);
+                    } else if (e instanceof NotPermissionException || e instanceof NotRoleException) {
+                        // 权限不足或不具备角色
+                        throw new NotPermissionException(e.getMessage());
+                    } else {
+                        // 其他异常,则抛出一个运行异常
+                        throw new RuntimeException(e.getMessage());
+                    }
                 })
                 ;
     }

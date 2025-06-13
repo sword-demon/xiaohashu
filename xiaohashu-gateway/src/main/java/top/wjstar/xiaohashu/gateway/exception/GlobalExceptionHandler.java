@@ -1,6 +1,7 @@
 package top.wjstar.xiaohashu.gateway.exception;
 
-import cn.dev33.satoken.exception.SaTokenException;
+import cn.dev33.satoken.exception.NotLoginException;
+import cn.dev33.satoken.exception.NotPermissionException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
@@ -36,7 +37,13 @@ public class GlobalExceptionHandler implements ErrorWebExceptionHandler {
         // 响应参数
         Response<?> result;
         // 根据捕获的异常类型,设置不同的响应状态码和响应消息
-        if (ex instanceof SaTokenException) {
+        if (ex instanceof NotLoginException) {
+            // 权限认证失败时,设置 401 状态码
+            response.setStatusCode(HttpStatus.UNAUTHORIZED);
+            // 构建响应结果
+            // 令牌可能会过期
+            result = Response.fail(ResponseCodeEnum.UNAUTHORIZED.getErrorCode(), ex.getMessage());
+        } else if (ex instanceof NotPermissionException) {
             // 权限认证失败时,设置 401 状态码
             response.setStatusCode(HttpStatus.UNAUTHORIZED);
             // 构建响应结果
