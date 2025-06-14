@@ -9,4 +9,4 @@ spring:
         enabled: true
         group: DEFAULT_GROUP
         namespace: xiaohashu
-        server-addr: http://159.75.113.48:8848
+        server-addr: http://127.0.0.1:8848
