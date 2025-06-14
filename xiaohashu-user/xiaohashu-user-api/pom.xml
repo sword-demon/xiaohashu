@@ -1,0 +1,22 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>top.wjstar</groupId>
+        <artifactId>xiaohashu-user</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <artifactId>xiaohashu-user-api</artifactId>
+    <packaging>jar</packaging>
+
+    <name>${project.artifactId}</name>
+    <description>RPC 层,供其他服务调用</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>top.wjstar</groupId>
+            <artifactId>xiaohashu-common</artifactId>
+        </dependency>
+    </dependencies>
+</project>
