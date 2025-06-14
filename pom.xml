@@ -20,6 +20,7 @@
         <module>xiaohashu-auth</module>
         <module>xiaohashu-framework</module>
         <module>xiaohashu-gateway</module>
+        <module>xiaohashu-oss</module>
     </modules>
 
     <properties>

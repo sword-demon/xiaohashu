@@ -1,0 +1,26 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>top.wjstar</groupId>
+        <artifactId>xiaohashu-oss</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <artifactId>xiaohashu-oss-api</artifactId>
+    <packaging>jar</packaging>
+
+    <name>${project.artifactId}</name>
+    <description>RPC 层,供其他服务调用</description>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>top.wjstar</groupId>
+            <artifactId>xiaohashu-common</artifactId>
+        </dependency>
+    </dependencies>
+</project>
