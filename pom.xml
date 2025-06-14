@@ -57,6 +57,7 @@
 
         <dysmsapi.version>2.0.24</dysmsapi.version>
         <nacos-config.version>0.3.0-RC</nacos-config.version>
+        <transmittable-thread-local.version>2.14.2</transmittable-thread-local.version>
     </properties>
 
     <!-- 统一依赖管理 -->
@@ -80,6 +81,12 @@
             <dependency>
                 <groupId>top.wjstar</groupId>
                 <artifactId>xiaohashu-spring-boot-starter-jackson</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>top.wjstar</groupId>
+                <artifactId>xiaohashu-spring-boot-starter-biz-context</artifactId>
                 <version>${revision}</version>
             </dependency>
 
@@ -201,6 +208,12 @@
                 <groupId>com.alibaba.boot</groupId>
                 <artifactId>nacos-config-spring-boot-starter</artifactId>
                 <version>${nacos-config.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>transmittable-thread-local</artifactId>
+                <version>${transmittable-thread-local.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

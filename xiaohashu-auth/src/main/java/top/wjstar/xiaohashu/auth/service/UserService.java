@@ -1,6 +1,7 @@
 package top.wjstar.xiaohashu.auth.service;
 
 import top.wjstar.framework.common.response.Response;
+import top.wjstar.xiaohashu.auth.model.vo.user.UpdatePasswordReqVO;
 import top.wjstar.xiaohashu.auth.model.vo.user.UserLoginReqVO;
 
 public interface UserService {
@@ -16,8 +17,15 @@ public interface UserService {
     /**
      * 退出登录
      *
-     * @param userId 用户 id
      * @return 响应
      */
-    Response<?> logout(Long userId);
+    Response<?> logout();
+
+    /**
+     * 修改密码
+     *
+     * @param updatePasswordReqVO 新密码
+     * @return
+     */
+    Response<?> updatePassword(UpdatePasswordReqVO updatePasswordReqVO);
 }

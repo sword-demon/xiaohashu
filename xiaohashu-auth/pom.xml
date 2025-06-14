@@ -45,6 +45,12 @@
             <artifactId>xiaohashu-spring-boot-starter-jackson</artifactId>
         </dependency>
 
+        <!-- context 组件 -->
+        <dependency>
+            <groupId>top.wjstar</groupId>
+            <artifactId>xiaohashu-spring-boot-starter-biz-context</artifactId>
+        </dependency>
+
         <!-- Mybatis -->
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
@@ -113,6 +119,17 @@
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>transmittable-thread-local</artifactId>
+        </dependency>
+
+        <!-- 密码加密 -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-crypto</artifactId>
         </dependency>
     </dependencies>
 

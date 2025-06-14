@@ -8,8 +8,10 @@ import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.support.TransactionTemplate;
+import top.wjstar.framework.biz.context.holder.LoginUserContextHolder;
 import top.wjstar.framework.common.enums.DeletedEnum;
 import top.wjstar.framework.common.enums.StatusEnum;
 import top.wjstar.framework.common.exception.BizException;
@@ -23,6 +25,7 @@ import top.wjstar.xiaohashu.auth.domain.mapper.UserDOMapper;
 import top.wjstar.xiaohashu.auth.domain.mapper.UserRoleDOMapper;
 import top.wjstar.xiaohashu.auth.enums.LoginTypeEnum;
 import top.wjstar.xiaohashu.auth.enums.ResponseCodeEnum;
+import top.wjstar.xiaohashu.auth.model.vo.user.UpdatePasswordReqVO;
 import top.wjstar.xiaohashu.auth.model.vo.user.UserLoginReqVO;
 import top.wjstar.xiaohashu.auth.service.UserService;
 
@@ -46,6 +49,9 @@ public class UserServiceImpl implements UserService {
      */
     @Resource
     private TransactionTemplate transactionTemplate;
+
+    @Resource
+    private PasswordEncoder passwordEncoder;
 
     /**
      * 登录与注册
@@ -117,12 +123,39 @@ public class UserServiceImpl implements UserService {
     /**
      * 退出登录
      *
-     * @param userId 用户 id
      * @return 响应
      */
     @Override
-    public Response<?> logout(Long userId) {
+    public Response<?> logout() {
+        Long userId = LoginUserContextHolder.getUserId();
+        log.info("==> 用户退出登录, userId: {}", userId);
+
         StpUtil.logout(userId);
+        return Response.success();
+    }
+
+    /**
+     * 修改密码
+     *
+     * @param updatePasswordReqVO 新密码
+     * @return
+     */
+    @Override
+    public Response<?> updatePassword(UpdatePasswordReqVO updatePasswordReqVO) {
+        String newPassword = updatePasswordReqVO.getNewPassword();
+        String encodePassword = passwordEncoder.encode(newPassword);
+
+        // 获取当前请求对应的用户 id
+        Long userId = LoginUserContextHolder.getUserId();
+
+        UserDO userDO = UserDO.builder()
+                .id(userId)
+                .password(encodePassword)
+                .updateTime(LocalDateTime.now())
+                .build();
+
+        // 更新密码
+        userDOMapper.updateByPrimaryKeySelective(userDO);
         return Response.success();
     }
 
@@ -130,7 +163,6 @@ public class UserServiceImpl implements UserService {
      * 系统自动注册用户
      *
      * @param phone 手机号码
-     * @return
      */
     public Long registerUser(String phone) {
         return transactionTemplate.execute(status -> {

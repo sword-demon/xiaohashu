@@ -3,9 +3,13 @@ package top.wjstar.xiaohashu.auth.controller;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import top.wjstar.framework.biz.operationlog.aspect.ApiOperationLog;
 import top.wjstar.framework.common.response.Response;
+import top.wjstar.xiaohashu.auth.model.vo.user.UpdatePasswordReqVO;
 import top.wjstar.xiaohashu.auth.model.vo.user.UserLoginReqVO;
 import top.wjstar.xiaohashu.auth.service.UserService;
 
@@ -25,8 +29,13 @@ public class UserController {
 
     @RequestMapping("/logout")
     @ApiOperationLog(description = "账号登出")
-    public Response<?> logout(@RequestHeader("userId") String userId) {
-        log.info("==> 网关透传过来的用户 id: {}", userId);
-        return userService.logout(Long.valueOf(userId));
+    public Response<?> logout() {
+        return userService.logout();
+    }
+
+    @PostMapping("/password/update")
+    @ApiOperationLog(description = "修改密码")
+    public Response<?> updatePassword(@Validated @RequestBody UpdatePasswordReqVO updatePasswordReqVO) {
+        return userService.updatePassword(updatePasswordReqVO);
     }
 }
