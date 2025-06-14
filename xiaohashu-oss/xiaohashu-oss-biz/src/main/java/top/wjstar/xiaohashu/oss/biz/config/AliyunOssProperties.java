@@ -4,11 +4,10 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
-@ConfigurationProperties(prefix = "storage.minio")
+@ConfigurationProperties(prefix = "storage.aliyun-oss")
 @Component
 @Data
-public class MinioProperties {
-
+public class AliyunOssProperties {
     private String endpoint;
     private String accessKey;
     private String secretKey;
