@@ -12,4 +12,12 @@ public interface UserService {
      * @return 字符串自定义响应
      */
     Response<String> loginAndRegister(UserLoginReqVO userLoginReqVO);
+
+    /**
+     * 退出登录
+     *
+     * @param userId 用户 id
+     * @return 响应
+     */
+    Response<?> logout(Long userId);
 }

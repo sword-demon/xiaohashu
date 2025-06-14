@@ -27,6 +27,6 @@ public class UserController {
     @ApiOperationLog(description = "账号登出")
     public Response<?> logout(@RequestHeader("userId") String userId) {
         log.info("==> 网关透传过来的用户 id: {}", userId);
-        return Response.success();
+        return userService.logout(Long.valueOf(userId));
     }
 }

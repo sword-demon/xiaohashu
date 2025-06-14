@@ -115,6 +115,18 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
+     * 退出登录
+     *
+     * @param userId 用户 id
+     * @return 响应
+     */
+    @Override
+    public Response<?> logout(Long userId) {
+        StpUtil.logout(userId);
+        return Response.success();
+    }
+
+    /**
      * 系统自动注册用户
      *
      * @param phone 手机号码
