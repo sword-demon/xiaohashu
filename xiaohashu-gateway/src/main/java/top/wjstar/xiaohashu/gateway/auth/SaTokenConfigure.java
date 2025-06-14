@@ -1,11 +1,13 @@
 package top.wjstar.xiaohashu.gateway.auth;
 
+import cn.dev33.satoken.context.SaHolder;
 import cn.dev33.satoken.exception.NotLoginException;
 import cn.dev33.satoken.exception.NotPermissionException;
 import cn.dev33.satoken.exception.NotRoleException;
 import cn.dev33.satoken.reactor.filter.SaReactorFilter;
 import cn.dev33.satoken.router.SaRouter;
 import cn.dev33.satoken.stp.StpUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -13,12 +15,14 @@ import org.springframework.context.annotation.Configuration;
  * Sa-Token 权限验证 配置类
  */
 @Configuration
+@Slf4j
 public class SaTokenConfigure {
 
     /**
      * 注册 Sa-Token 全局过滤器
      *
      * @return
+     * @Order(-100) 优先级非常高 保证校验在前
      */
     @Bean
     public SaReactorFilter getSaReactorFilter() {
@@ -29,6 +33,7 @@ public class SaTokenConfigure {
                 .addExclude("/favicon.ico")
                 // 鉴权方法：每次访问进入
                 .setAuth(obj -> {
+                    log.info("======================> SaReactorFilter, Path: {}", SaHolder.getRequest().getRequestPath());
                     // 登录校验 -- 拦截所有路由，并排除/user/doLogin 用于开放登录
                     SaRouter.match("/**")
                             .notMatch("/auth/user/login") // 排除登录接口
