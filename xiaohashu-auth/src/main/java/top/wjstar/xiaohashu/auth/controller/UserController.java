@@ -14,7 +14,6 @@ import top.wjstar.xiaohashu.auth.model.vo.user.UserLoginReqVO;
 import top.wjstar.xiaohashu.auth.service.UserService;
 
 @RestController
-@RequestMapping("/user")
 @Slf4j
 public class UserController {
 

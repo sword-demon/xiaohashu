@@ -10,6 +10,12 @@ spring:
             - Path=/auth/** # 表示所有 /auth/ 开头的路径都会匹配这个路由规则
           filters: # 定义路由过滤器
             - StripPrefix=1 # 表示去掉路径中的第一部分,如果请求路径为 /auth/verification/code/send,去掉第一个前缀后,实际服务的路径变成了 /verification/code/send
+        - id: user
+          uri: lb://xiaohashu-user
+          predicates:
+            - Path=/user/**
+          filters:
+            - StripPrefix=1
   data:
     redis:
       database: 0
