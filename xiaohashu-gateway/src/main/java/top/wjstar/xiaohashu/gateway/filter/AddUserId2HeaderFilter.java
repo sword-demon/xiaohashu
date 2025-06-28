@@ -22,26 +22,32 @@ public class AddUserId2HeaderFilter implements GlobalFilter {
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+        // 记录进入 TokenConvertFilter 过滤器的日志
         log.info("=======================> TokenConvertFilter");
 
-        // 用户 id
+        // 声明一个变量用于存储用户的id，初始值为null
         Long userId = null;
+
         try {
-            // 获取当前登录用户的 id
+            // 尝试获取当前登录用户的id，如果用户已登录，则userId会被赋值
             userId = StpUtil.getLoginIdAsLong();
         } catch (Exception e) {
-            // 若没有登录,则直接放行
+            // 如果捕获到异常（例如用户未登录），则直接调用链中的下一个过滤器，放行当前请求
             return chain.filter(exchange);
         }
 
+        // 记录当前登录用户的id
         log.info("## 当前登录用户 id: {}", userId);
 
+        // 由于Java的lambda表达式不能直接使用局部变量，所以将userId赋值给finalUserId
         Long finalUserId = userId;
-        // 创建一个新的 ServerWebExchange 对象,用于修改当前请求
+
+        // 创建一个新的ServerWebExchange对象，目的是为了修改当前请求，在请求头中添加用户的id信息
         ServerWebExchange newExchange = exchange.mutate()
                 .request(builder -> builder.header(HEADER_USER_ID, String.valueOf(finalUserId))).build();
 
-        // 将请求传递给过滤器中的下一个过滤器进行处理.没有对请求进行任何修改
+        // 使用新的ServerWebExchange对象调用过滤器链中的下一个过滤器，继续处理请求
         return chain.filter(newExchange);
     }
+
 }
