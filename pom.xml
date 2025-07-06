@@ -98,6 +98,12 @@
                 <version>${revision}</version>
             </dependency>
 
+            <dependency>
+                <groupId>top.wjstar</groupId>
+                <artifactId>xiaohashu-oss-api</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+
             <!-- 避免编写那些冗余的 Java 样板式代码，如 get、set 等 -->
             <dependency>
                 <groupId>org.projectlombok</groupId>

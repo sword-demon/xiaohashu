@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import top.wjstar.framework.biz.context.holder.LoginUserContextHolder;
 import top.wjstar.framework.common.response.Response;
 import top.wjstar.framework.common.util.ParamUtils;
+import top.wjstar.xiaohashu.oss.api.FileFeignApi;
 import top.wjstar.xiaohashu.user.biz.domain.dataobject.UserDO;
 import top.wjstar.xiaohashu.user.biz.domain.mapper.UserDOMapper;
 import top.wjstar.xiaohashu.user.biz.enums.ResponseCodeEnum;
@@ -26,6 +27,9 @@ public class UserServiceImpl implements UserService {
 
     @Resource
     private UserDOMapper userDOMapper;
+
+    @Resource
+    private FileFeignApi fileFeignApi;
 
     /**
      * 更新用户信息
@@ -46,6 +50,7 @@ public class UserServiceImpl implements UserService {
 
         if (Objects.nonNull(avatarFile)) {
             // 调用对象存储服务上传文件
+            fileFeignApi.test();
         }
 
         // 昵称

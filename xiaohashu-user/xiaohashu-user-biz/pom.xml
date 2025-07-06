@@ -76,6 +76,11 @@
             <groupId>top.wjstar</groupId>
             <artifactId>xiaohashu-spring-boot-starter-jackson</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>top.wjstar</groupId>
+            <artifactId>xiaohashu-oss-api</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
